@@ -1,5 +1,4 @@
 import os
-
 from classes import Player, Game
 from helpers import get_log_file, get_player_data, get_kill_data, json_writer
 
@@ -17,7 +16,6 @@ for linha in arquivo:
         nome_do_player, _id = get_player_data(linha)
         player = Player(_id, nome_do_player) 
         for p in game.players:
-            #print(f"Ola player: {p.nome}")
             if player.id == p.id:
                 player_ja_existe = 1
 
@@ -27,12 +25,9 @@ for linha in arquivo:
         if player_ja_existe != 1: 
             game.players.append(player)
 
-        #print(f"{player.id} : {player.nome}")
-
     if "Kill" in linha:
         game.kills += 1
         assassino, morto = get_kill_data(linha)
-        #print(f"Assassino: {assassino} - Morto: {morto}")
 
         if assassino == "<world>":
             for p in game.players:
@@ -48,38 +43,4 @@ for linha in arquivo:
     if "ShutdownGame:" in linha:
         games.append(game)
 
-
-
-with open('data.json', 'w', encoding='utf-8') as f:
-    contador = 1
-    for g in games: 
-        play = g.players
-        klls = g.kills
-        f.writelines(json.dumps(
-            {
-                "game" : contador,
-                "status" : {
-                "total_kills" : klls,
-                "players" : []
-            }
-        }, 
-    indent=4
-))
-        for p in play:
-            kl = p.kills
-            uid = p.id
-            nome = p.nome
-            old_name = p.old_names
-            f.writelines(json.dumps(dict(
-                [
-                ("id", uid),
-                ("nome", nome),
-                ("kills", kl),
-                ("old_names", old_name)
-                ]
-            ),sort_keys=True, indent=4
-        ))
-        contador += 1
-
-
-#json_writer(games)
+json_writer(games)

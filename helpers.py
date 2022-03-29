@@ -1,7 +1,8 @@
 import json
 
+def get_log_file(file_path): 
+# Função para receber e retornar o arquivi em formato de leitura por linhas.
 
-def get_log_file(file_path):
     file = open(file_path)
 
     try:
@@ -12,6 +13,8 @@ def get_log_file(file_path):
     return(arquivo)
 
 def get_player_data(linha):
+# Função que mapeia o arquivo de log e retorna o id e o nome do player.
+
     i = 0
     name_start = 0
     nome_do_player = ""
@@ -35,6 +38,8 @@ def get_player_data(linha):
 
 
 def get_kill_data(linha):
+# função que mapeia o arquivo de log e retona o nome do assassino e o nome do morto.
+
     i = 0
     contador_dois_pontos = 0
     for l in linha:
@@ -58,17 +63,16 @@ def get_kill_data(linha):
 
 
 def json_writer(games_list):
+# Função que escreve em json as informações necessárias do game. 
+    
     with open('data.json', 'w', encoding='utf-8') as f:
         contador = 1
         f.writelines("[")
         for g in games_list:
-            #print(f"[{{\n\"game\": {contador}, \n\"status\": {{\n\"total_kills\": {g.kills}")
             f.writelines(f"{{\n\"game\": {contador}, \n\"status\": {{\n\"total_kills\": {g.kills},")
             f.writelines("\n\"players\": [\n")
-            #print("\"players\": \n")
             contador_players = 1
             for p in g.players:
-                #print("numero de players no game: ", len(g.players), "contador players: ", contador_players)
                 if contador_players == len(g.players):
                     f.writelines(f"{{\n  \"id\": {p.id}, \n  \"nome\": \"{p.nome}\", \n  \"kills\": {p.kills}, \n  \"old_names\": {json.dumps(p.old_names)}\n}}\n")
                 else:
