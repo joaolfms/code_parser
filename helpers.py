@@ -1,7 +1,7 @@
 import json
 
 def get_log_file(file_path): 
-# Função para receber e retornar o arquivi em formato de leitura por linhas.
+# Função para receber e retornar o arquivo em formato de leitura por linhas.
 
     file = open(file_path)
 
