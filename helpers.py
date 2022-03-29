@@ -1,6 +1,7 @@
 import json
 
 def get_log_file(file_path): 
+# Função para receber e retornar o arquivo em formato de leitura por linhas.
     file = open(file_path)
 
     try:
@@ -9,9 +10,9 @@ def get_log_file(file_path):
         file.close()
     
     return(arquivo)
-# Função para receber e retornar o arquivo em formato de leitura por linhas.
 
 def get_player_data(linha):
+# Função que mapeia o arquivo de log e retorna o id e o nome do player.
     i = 0
     name_start = 0
     nome_do_player = ""
@@ -32,10 +33,9 @@ def get_player_data(linha):
 
     
     return(nome_do_player, _id)
-# Função que mapeia o arquivo de log e retorna o id e o nome do player.
-
 
 def get_kill_data(linha):
+# função que mapeia o arquivo de log e retona o nome do assassino e o nome do morto.
     i = 0
     contador_dois_pontos = 0
     for l in linha:
@@ -56,9 +56,9 @@ def get_kill_data(linha):
         i += 1
     
     return(assassino, morto)
-# função que mapeia o arquivo de log e retona o nome do assassino e o nome do morto.
 
-def json_writer(games_list):    
+def json_writer(games_list):   
+# Função que escreve em json as informações necessárias do game. 
     with open('data.json', 'w', encoding='utf-8') as f:
         contador = 1
         f.writelines("[")
@@ -79,4 +79,4 @@ def json_writer(games_list):
                 f.writelines("\n},\n")
             contador += 1 
         f.writelines("]")
-# Função que escreve em json as informações necessárias do game. 
+        
